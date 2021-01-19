@@ -1,13 +1,13 @@
 {
   "name": "poptropica-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Play poptropica in fullscreen without banner ads!",
   "main": "index.js",
   "scripts": {
     "test": "node index",
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder -m -l -w --x64"
   },
   "author": "",
   "license": "ISC",
