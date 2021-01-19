@@ -14,8 +14,8 @@ function createWindow() {
     webPreferences: {
       webviewTag: true
     },
-    title: "Poptropica"
-  })
+    title: "Poptropica",
+    })
 
 
   win.loadURL('file://' + __dirname + '/app/index.html');
