@@ -16,6 +16,12 @@ Play Poptropica in its own window, without banner & video ads, and with a stream
 
 ![Map](screenshots/gameplay2.png)
 
+## Develop
+1. Clone this repository
+2. Run `npm install` to get everything ready
+3. Run `npm start` to test
+4. Run `yarn dist` to create distributable files
+
 ## Privacy
 Your login information is completely secure and only gets sent to poptropica.com. This application has no servers nor contacts any besides the ones required for playing Poptropica.
 
