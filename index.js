@@ -10,10 +10,11 @@ function createWindow() {
   win = new BrowserWindow({
     width: 915,
     height: 638,
-		backgroundColor: '#000000',
+		backgroundColor: '#373B3D',
     webPreferences: {
       webviewTag: true
-    }
+    },
+    title: "Poptropica"
   })
 
 
