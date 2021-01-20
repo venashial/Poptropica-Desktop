@@ -99,7 +99,7 @@ fetch('https://api.github.com/repos/venashial/Poptropica-Desktop/releases/latest
 
 function check_versions(latest_version) {
 
-if (current_version != latest_version) {
+if ("v" + current_version != latest_version) {
 	if (confirm(`A newer version, ${latest_version} is available! Click "OK" to download it!`)) {
 		window.open("https://github.com/venashial/Poptropica-Desktop/releases/latest", '_blank');
 		window.close()
