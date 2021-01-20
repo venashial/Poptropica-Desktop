@@ -1,6 +1,6 @@
 {
   "name": "poptropica-desktop",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "Play poptropica in fullscreen without banner ads!",
   "main": "index.js",
   "scripts": {

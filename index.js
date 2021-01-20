@@ -20,8 +20,9 @@ function createWindow() {
     title: "Poptropica",
     })
 
-
   win.loadURL('file://' + __dirname + '/app/index.html');
+
+  win.removeMenu()
 
   win.on('closed', () => {
     win = null
