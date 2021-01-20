@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+require('v8-compile-cache');
+const { app } = require('electron')
 const path = require('path');
+const RatioWindow = require('./RatioWindow');
 
 // Global variable that holds the app window
 let win
@@ -7,9 +9,9 @@ let win
 function createWindow() {
 
   // Creating the browser window
-  win = new BrowserWindow({
-    width: 915,
-    height: 638,
+  win = new RatioWindow({
+    width: 960,
+    height: 640,
 		backgroundColor: '#373B3D',
     webPreferences: {
       webviewTag: true
@@ -24,13 +26,9 @@ function createWindow() {
     win = null
   })
 
-// 'win' as the BrowserWindow instance
-win.on('resize', function () {
-  setTimeout(function () {
-    var size = win.getSize();
-    win.setSize(size[0], parseInt(size[0] * 638 / 915));
-  }, 0);
-});
+  win.on('show', () => {
+    win.setSize(960, 640 + (win.getSize()[1] - win.getContentSize()[1]))
+  })
 
   // Prevent from spawning new windows
   win.webContents.on('new-window', (event, url) => {
@@ -43,3 +41,41 @@ win.on('resize', function () {
 // Executing the createWindow function
 // when the app is ready
 app.on('ready', createWindow)
+
+
+// Discord Rich presence
+const DiscordRPC = require('discord-rpc');
+
+// Set this to your Client ID.
+const clientId = '801212535767302165';
+
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+const startTimestamp = new Date();
+
+async function setActivity() {
+  if (!rpc || !win) {
+    return;
+  }
+
+  rpc.setActivity({
+    details: 'Join the adventures',
+    state: 'of Poptropica!',
+    startTimestamp,
+    largeImageKey: 'banner',
+    largeImageText: 'Poptropica Desktop',
+    smallImageKey: 'icon',
+    smallImageText: 'https://github.com/venashial/Poptropica-Desktop',
+    instance: false,
+  });
+}
+
+rpc.on('ready', () => {
+  setActivity();
+
+  // activity can only be set every 15 seconds
+  setInterval(() => {
+    setActivity();
+  }, 15e3);
+});
+
+rpc.login({ clientId }).catch(console.error);

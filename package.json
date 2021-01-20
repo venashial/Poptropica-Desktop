@@ -1,6 +1,6 @@
 {
   "name": "poptropica-desktop",
-  "version": "1.0.1",
+  "version": "1.2.1",
   "description": "Play poptropica in fullscreen without banner ads!",
   "main": "index.js",
   "scripts": {
@@ -12,13 +12,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-  },
+    "node-fetch": "^2.6.1",
+    "v8-compile-cache": "^2.2.0",
+    "ws": "^7.4.2",
+    "discord-rpc": "^3.1.4",
+    "file-uri-to-path": "^1.0.0",
+    "node-addon-api": "^1.7.2"
+    },
   "devDependencies": {
     "electron": "^11.2.0",
     "electron-builder": "^22.9.1"
   },
   "build": {
-      "appId": "design.venashial.poptropica-desktop",
-      "productName": "Poptropica"
+    "appId": "design.venashial.poptropica-desktop",
+    "productName": "Poptropica"
   }
 }
