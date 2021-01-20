@@ -21,14 +21,14 @@
 
 <body>
 
-	<webview id="poptropica-webview" src="https://www.poptropica.com/?login_mode=1" style="overflow: hidden; width:100%; height:100%;" partition="persist:webview"></webview>
+	<webview id="poptropica-webview" src="https://www.poptropica.com/?login_mode=1" allowpopups style="overflow: hidden; width:100%; height:100%;" partition="persist:webview"></webview>
 
 <script>
 const css = `::-webkit-scrollbar {
     display: none;
 }
 
-#video-panel, #bottom, #quiz, #billboard, #videoOverlay, #playwireVideos, #left_wrapper, #right_wrapper, #wrapper, .footer-section, a.modal-login-close {
+#video-panel, #bottom, #quiz, #billboard, #videoOverlay, #playwireVideos, #left_wrapper, #right_wrapper, #wrapper, .footer-section, a.modal-login-close, #pw-oop-bottom_rail {
     display: none !important;
 }
 
@@ -86,6 +86,28 @@ const webview = document.querySelector('webview')
 webview.addEventListener('dom-ready', () => {
   webview.insertCSS(css)
 })
+</script>
+<script>
+// In renderer process (web page).
+const { ipcRenderer } = require('electron')
+
+let current_version = ipcRenderer.sendSync('synchronous-message', 'current_version')
+
+fetch('https://api.github.com/repos/venashial/Poptropica-Desktop/releases/latest')
+  .then(response => response.json())
+  .then(data => check_versions(data.tag_name));
+
+function check_versions(latest_version) {
+
+if (current_version != latest_version) {
+	if (confirm(`A newer version, ${latest_version} is available! Click "OK" to download it!`)) {
+		window.open("https://github.com/venashial/Poptropica-Desktop/releases/latest", '_blank');
+		window.close()
+	}
+}
+
+}
+
 </script>
 </body>
 </html>

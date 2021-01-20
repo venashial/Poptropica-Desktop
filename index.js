@@ -14,7 +14,8 @@ function createWindow() {
     height: 640,
 		backgroundColor: '#373B3D',
     webPreferences: {
-      webviewTag: true
+      webviewTag: true,
+      nodeIntegration: true
     },
     title: "Poptropica",
     })
@@ -29,6 +30,11 @@ function createWindow() {
   win.on('show', () => {
     win.setSize(960, 640 + (win.getSize()[1] - win.getContentSize()[1]))
   })
+
+  win.webContents.on('new-window', function(e, url) {
+  e.preventDefault();
+  require('electron').shell.openExternal(url);
+  });
 
   // Prevent from spawning new windows
   win.webContents.on('new-window', (event, url) => {
@@ -79,3 +85,11 @@ rpc.on('ready', () => {
 });
 
 rpc.login({ clientId }).catch(console.error);
+
+
+// In main process.
+const { ipcMain } = require('electron')
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  event.returnValue = app.getVersion()
+})
